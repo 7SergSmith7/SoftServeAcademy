@@ -1,4 +1,4 @@
-// Task 2
+// Task 3
 
 let welcomeMessage = `
 Привет! 
