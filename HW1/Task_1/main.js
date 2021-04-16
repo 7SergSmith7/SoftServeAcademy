@@ -17,7 +17,7 @@ function getUserInput(number) {
 }
 
 function calculateWallArea(arraySize) {
-  wallArea = 2 * arraySize[0] * arraySize[2] + 2 * arraySize[1] * arraySize[2];
+  wallArea = 2 * arraySize[2] * (arraySize[0] + arraySize[1]);
   return wallArea;
 }
 
