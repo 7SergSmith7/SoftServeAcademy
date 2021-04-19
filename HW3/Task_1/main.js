@@ -19,7 +19,7 @@ function sortString(str) {
 }
 
 function printAnswer(result) {
-  alert(finalAnswer + result);
+  alert(result);
 }
 
 function init() {
