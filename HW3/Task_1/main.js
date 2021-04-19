@@ -1,6 +1,5 @@
 // Task 1
 
-const finalAnswer = "Правильная строка - ";
 let stringNeedToSort = "is2 Thi1s T4est 3a";
 
 function sortArrayOfStringsWithNums(array) {
