@@ -50,7 +50,7 @@ function decodeMorse(morse) {
     .map((word) =>
       word
         .split(" ")
-        .map((letеer) => alphabet[letеer])
+        .map((letter) => alphabet[letter])
         .join("")
     )
     .join(" ");
