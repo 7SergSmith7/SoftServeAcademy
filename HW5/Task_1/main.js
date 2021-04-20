@@ -4,7 +4,6 @@ const inputExpression = "@~~@@+@@";
 
 function calculateQuipu(expression) {
   const sign = getSign(expression);
-  console.log(sign);
   let nums = expression.split(sign).map((str) => getNums(str));
   return convertToQuipu(getNumResult(nums, sign));
 }
