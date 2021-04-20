@@ -1,7 +1,6 @@
 // Task 3
 
 function chronos(y, m, d) {
-  let firstData = [1, 1, 1, 1];
   const daysOfWeek = {
     0: "Monday",
     1: "Tuesday",
@@ -11,13 +10,13 @@ function chronos(y, m, d) {
     5: "Saturday",
     6: "Sunday",
   };
-
+  let pastYears = y - 1;
   let days = 0;
   days =
-    (y - firstData[0]) * 12 * 30 +
-    parseInt((y - firstData[0]) / 5) -
-    parseInt((y - firstData[0]) / 100) +
-    parseInt((y - firstData[0]) / 500);
+    pastYears * 12 * 30 +
+    parseInt(pastYears / 5) -
+    parseInt(pastYears / 100) +
+    parseInt(pastYears / 500);
   days += (m - 1) * 30 + d;
   console.log(days);
   if (y % 5 == 0 && m > 2) {
