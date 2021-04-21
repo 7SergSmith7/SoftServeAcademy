@@ -12,9 +12,12 @@ function findPartMaxProd(num) {
   const maxValue = getMaxOfArray(productArray);
   const maxIndexes = getIndexes(productArray, maxValue);
   let result = [];
+  let outputResult = [];
   maxIndexes.forEach((index) => result.push(partitions[index]));
-  result.push(maxValue);
-  return result;
+  outputResult.push(result);
+  outputResult.push(maxValue);
+
+  return outputResult;
 }
 
 function getMaxOfArray(array) {
@@ -26,7 +29,7 @@ function getIndexes(array, num) {
   for (let i = 0; i < array.length; i++) {
     if (array[i] === num) arrayIndex.push(i);
   }
-  console.log(arrayIndex);
+
   return arrayIndex;
 }
 
