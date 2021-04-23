@@ -34,6 +34,7 @@ class PaginationHelper {
 }
 
 const helper = new PaginationHelper(["a", "b", "c", "d", "e", "f"], 4);
+
 console.log(helper.pagesWithItems);
 
 console.log(helper.pageCount()); // должно == 2
