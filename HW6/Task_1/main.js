@@ -18,11 +18,21 @@ class Hex {
   toString() {
     return this.convertToHex(this.value);
   }
-  plus(hexObject) {
-    return new Hex(this.value + hexObject.valueOf());
+  plus(numOrhexObject) {
+    let result = null;
+    if (typeof numOrhexObject === "object")
+      result = new Hex(this.value + numOrhexObject.valueOf());
+    if (typeof numOrhexObject === "number")
+      result = new Hex(this.value + numOrhexObject);
+    return result;
   }
-  minus(hexObject) {
-    return new Hex(this.value - hexObject.valueOf());
+  minus(numOrhexObject) {
+    let result = null;
+    if (typeof numOrhexObject === "object")
+      result = new Hex(this.value - numOrhexObject.valueOf());
+    if (typeof numOrhexObject === "number")
+      result = new Hex(this.value - numOrhexObject);
+    return result;
   }
   static parse(hexStr) {
     return parseInt(hexStr.replace("0x", ""), 16);
