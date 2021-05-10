@@ -26,10 +26,42 @@
   </head>
   <body>
     <div class="container">
+      <!-- Modal -->
+      <div class="modal-product">
+        <div class="modal fade" id="productModal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">
+                  ${product.title}
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <img
+                  src="${product.imgUrl}"
+                  class="card-img-top"
+                  alt="${product.title}"
+                />
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary buy-product">
+                  Buy
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col">
           <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand">Navbar</a>
+            <a class="navbar-brand">Shop</a>
             <form class="d-flex">
               <input
                 class="form-control me-2"
@@ -61,10 +93,38 @@
       <div class="row products-row">
         <div class="col-12 col-md-3">
           <div class="row">
-            <div class="col-12"><h6>Filter</h6></div>
-            <div class="col-12"><span>Sort</span></div>
-            <div class="col-12"><span>Cheap First</span></div>
-            <div class="col-12"><span>Expensive First</span></div>
+            <form class="options-blocks-form">
+              <div class="col-12"><h6>Filter</h6></div>
+              <div class="col-12"><span>Sort</span></div>
+              <div class="col-12">
+                <div class="options-blocks-radio">
+                  <input
+                    type="radio"
+                    class="radio-input"
+                    id="price-sort-less"
+                    name="price"
+                    value="descending"
+                  />
+                  <label class="price-sort-less" for="price-sort-less">
+                    <span>Cheap First</span></label
+                  >
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="options-blocks-radio">
+                  <input
+                    type="radio"
+                    class="radio-input"
+                    id="price-sort-more"
+                    name="price"
+                    value="ascending"
+                  />
+                  <label class="price-sort-more" for="price-sort-more">
+                    <span>Expensive First</span></label
+                  >
+                </div>
+              </div>
+            </form>
           </div>
         </div>
         <div class="col-12 col-md-9">
@@ -77,13 +137,7 @@
       <div class="row pagination-row">
         <div class="col d-flex justify-content-center">
           <nav class="navigation-pagination">
-            <ul class="pagination pagination-sm">
-              <li class="page-item active">
-                <span class="page-link">1</span>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-            </ul>
+            <ul class="pagination pagination-sm"></ul>
           </nav>
         </div>
       </div>
