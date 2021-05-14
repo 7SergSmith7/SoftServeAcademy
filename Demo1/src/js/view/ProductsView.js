@@ -14,15 +14,17 @@ export default class ProductsView {
   }
 
   getProductTemplate(product) {
-    return `<div class="col-12 col-sm-6 col-md-4 col-lg-3" data-id="${product.id}>
+    return `<div class="col-12 col-sm-6 col-md-4 col-lg-3" data-id="${product.id}">
       <div class="card"  data-id="${product.id}" >
-        <img data-bs-toggle="modal" data-bs-target="#productModal" src="${product.imgUrl}" data-id="${product.id}" class="card-img-top" alt="${product.title}" />
+      <div class="card-img align-self-center">
+        <img  src="${product.imgLink}" data-id="${product.id}" class="card-img-top" alt="${product.productName}" /></div>
         <div  class="card-body" data-id="${product.id}">
-          <h5 data-bs-toggle="modal" data-bs-target="#productModal" class="card-title" data-id="${product.id}">${product.title}</h5>
-          <p data-bs-toggle="modal" data-bs-target="#productModal" class="card-price" data-id="${product.id}">${product.price} UAH</p>
+        <div  class="product_title">  <p  class="card-title" data-id="${product.id}">${product.productName}</p></div>
+          <p class="card-price" data-id="${product.id}"><b>${product.price} UAH</b></p>
           <button type="button" id="buy-product" data-id="${product.id}" class="btn btn-primary buy-product">Buy</button>
         </div>
       </div>
+      
     </div>`;
   }
   clearProductsList() {
@@ -32,6 +34,10 @@ export default class ProductsView {
   addModalProduct(product) {
     this.modalContainer.innerHTML = "";
     this.modalContainer.innerHTML += this.getModalProductTemplate(product);
+    this.showProduct();
+  }
+  showProduct() {
+    $("#productModal").modal("show");
   }
 
   getModalProductTemplate(product) {
@@ -39,7 +45,7 @@ export default class ProductsView {
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="productModalLabel">${product.title}</h5>
+          <h5 class="modal-title" id="productModalLabel">${product.productName}</h5>
           <button
             type="button"
             class="btn-close"
@@ -47,7 +53,12 @@ export default class ProductsView {
             aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body"> <img src="${product.imgUrl}" class="card-img-top" alt="${product.title}" /></div>
+        <div class="modal-body"> <img src="${product.imgLink}" class="card-img-top" alt="${product.productName}" /></div>
+        <div class="modal-info">
+        <p class="product-manufacture" ><b>Manufacture:</b> ${product.manufacture}</p>
+        <p class="product-units" ><b>Units:</b> ${product.units}</p>
+        <p class="product-price" ><b>Price:</b> ${product.price} UAH</p>
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary buy-product">
            Buy

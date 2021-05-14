@@ -1,6 +1,7 @@
 export default class CartView {
   constructor() {
     this.prodcutsListInCart = document.querySelector(".shopping-list");
+    this.cartTotalInfo = document.querySelector(".cart-total-info");
   }
 
   renderProductsInCart(list) {
@@ -10,7 +11,7 @@ export default class CartView {
   }
   getProductInCartTemplate(product) {
     return `<div
-      class="col product-item d-inline-flex justify-content-between"
+      class="col product-item d-flex align-items-center justify-content-between"
       data-id="${product.id}"
     >
       <img
@@ -20,9 +21,9 @@ export default class CartView {
         alt="${product.title}"
       />
 
-      <h6 class="card-title" data-id="${product.id}">
+      <p class="card-title" data-id="${product.id}">
         ${product.title}
-      </h6>
+      </p>
       <p class="card-price" data-id="${product.id}">
         ${product.price} UAH
       </p>
@@ -35,5 +36,16 @@ export default class CartView {
         Delete
       </button>
     </div>`;
+  }
+
+  renderTotalInfo(totalValue) {
+    this.cartTotalInfo.innerHTML = "";
+    this.cartTotalInfo.innerHTML += this.getTotalInfoTemplate(totalValue);
+  }
+
+  getTotalInfoTemplate(totalValue) {
+    return `
+    <p><b>Total:</b></p>
+    <p><b>${totalValue} UAH</b></p>`;
   }
 }

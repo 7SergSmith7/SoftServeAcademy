@@ -6,6 +6,6 @@ export default class CartController {
     this.cartVeiw = new CartView();
     this.cartModel = new CartModel();
     this.cartVeiw.renderProductsInCart(this.cartModel.getProductInCart());
-    console.log(this.cartModel.getProductInCart());
+    this.cartVeiw.renderTotalInfo(this.cartModel.calculateCartValue());
   }
 }

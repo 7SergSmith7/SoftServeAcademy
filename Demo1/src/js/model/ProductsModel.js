@@ -1,14 +1,49 @@
 import { PRODUCTS_LIST_URL } from "../config.js";
+// import { PRODUCTS_LIST_URL_NEW } from "../config.js";
 export default class ProductsModel {
   constructor() {
     this.productsList = [];
-    // this.creatLocalCart();
+    // this.productsListNew = this.getProductsList();
+    // console.log(this.productsListNew);
   }
 
+  // getProductsList() {
+  //   return fetch(PRODUCTS_LIST_URL)
+  //     .then((res) => res.json())
+  //     .then((data) => (this.productsList = data));
+  // }
+
   getProductsList() {
-    return fetch(PRODUCTS_LIST_URL)
+    return fetch(
+      "https://spreadsheets.google.com/feeds/cells/1PXorfz2O2NqH-FcW0nA-HhmtZMmSSwgHheifWc0e1tU/1/public/full?alt=json"
+    )
       .then((res) => res.json())
-      .then((data) => (this.productsList = data));
+      .then((data) => (this.productsList = this.makeProductsList(data)));
+  }
+  makeProductsList(data) {
+    const productFields = [
+      "id",
+      "productName",
+      "manufacture",
+      "category",
+      "ingridients",
+      "amounts",
+      "units",
+      "price",
+      "imgLink",
+    ];
+    let products = [];
+    for (let i = 9; i < data.feed.entry.length; i += 9) {
+      let productWithValuePairs = [];
+      for (let j = 0; j < 9; j++) {
+        productWithValuePairs.push([
+          productFields[j],
+          data.feed.entry[i + j].content.$t,
+        ]);
+      }
+      products.push(Object.fromEntries(new Map(productWithValuePairs)));
+    }
+    return products;
   }
   sortPrice(options) {
     if (options === "descending")

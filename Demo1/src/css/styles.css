@@ -1,3 +1,13 @@
+.container {
+  background: #fdfdfd;
+}
+.header {
+  background: #edf3ff;
+}
+
+.footer {
+  background: #edf3ff;
+}
 .products-row {
   margin-top: 40px;
 }
@@ -16,10 +26,46 @@
 .cart {
   margin-top: 20px;
 }
+.card {
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 4px 4px 9px -4px rgba(34, 60, 80, 0.21);
+}
 
 .card-img-cart {
   width: 50px;
 }
 .product-item {
   margin-bottom: 20px;
+}
+
+.card-img {
+  margin-top: 5px;
+  overflow: hidden;
+  width: 150px;
+  height: 150px;
+}
+
+.products-list {
+  margin-top: 20px;
+}
+.product_title {
+  height: 75px;
+}
+.options-blocks-form {
+  margin-bottom: 20px;
+}
+.modal-info {
+  padding-left: 10px;
+}
+
+li {
+  list-style-type: none;
+}
+ul {
+  margin-left: 0;
+  padding-left: 0;
+}
+.footer-list a {
+  text-decoration: none;
 }
