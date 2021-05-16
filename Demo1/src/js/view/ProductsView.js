@@ -1,9 +1,13 @@
 export default class ProductsView {
-  constructor(onProductCartClick) {
+  btnsAddToCart = ".buy-product";
+  constructor(onProductCartClick, onAddToCartClick, onResetBtnClick) {
     this.prodcutsList = document.querySelector(".products-list");
     this.modalContainer = document.querySelector(".modal-product");
+    this.resetBtn = document.querySelector(".reset-btn");
 
+    this.onAddToCartClick = onAddToCartClick;
     this.prodcutsList.addEventListener("click", onProductCartClick);
+    this.resetBtn.addEventListener("click", onResetBtnClick);
   }
 
   renderProducts(list) {
@@ -11,15 +15,16 @@ export default class ProductsView {
     this.prodcutsList.innerHTML += list
       .map((product) => this.getProductTemplate(product))
       .join("");
+    this.addListeners();
   }
 
   getProductTemplate(product) {
     return `<div class="col-12 col-sm-6 col-md-4 col-lg-3" data-id="${product.id}">
       <div class="card"  data-id="${product.id}" >
-      <div class="card-img align-self-center">
+      <div class="card-img align-self-center" data-id="${product.id}">
         <img  src="${product.imgLink}" data-id="${product.id}" class="card-img-top" alt="${product.productName}" /></div>
         <div  class="card-body" data-id="${product.id}">
-        <div  class="product_title">  <p  class="card-title" data-id="${product.id}">${product.productName}</p></div>
+        <div  class="product_title" data-id="${product.id}">  <p  class="card-title" data-id="${product.id}">${product.productName}</p></div>
           <p class="card-price" data-id="${product.id}"><b>${product.price} UAH</b></p>
           <button type="button" id="buy-product" data-id="${product.id}" class="btn btn-primary buy-product">Buy</button>
         </div>
@@ -38,6 +43,13 @@ export default class ProductsView {
   }
   showProduct() {
     $("#productModal").modal("show");
+    this.addListeners();
+  }
+
+  addListeners() {
+    [...document.querySelectorAll(this.btnsAddToCart)].forEach((btn) =>
+      btn.addEventListener("click", this.onAddToCartClick)
+    );
   }
 
   getModalProductTemplate(product) {
@@ -60,7 +72,7 @@ export default class ProductsView {
         <p class="product-price" ><b>Price:</b> ${product.price} UAH</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary buy-product">
+          <button type="button" data-id="${product.id}" data-bs-dismiss="modal" class="btn btn-primary buy-product">
            Buy
           </button>
         </div>

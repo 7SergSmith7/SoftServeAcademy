@@ -10,6 +10,6 @@ export default class CartModel {
   calculateCartValue() {
     return this.getProductInCart()
       .map((product) => product.price)
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => +a + +b);
   }
 }

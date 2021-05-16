@@ -39,7 +39,6 @@
                   type="button"
                   class="btn-close"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
                 ></button>
               </div>
               <div class="modal-body">
@@ -50,7 +49,12 @@
                 />
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary buy-product">
+                <button
+                  data-bs-dismiss="modal"
+                  type="button"
+                  data-id="${product.id}"
+                  class="btn btn-primary buy-product"
+                >
                   Buy
                 </button>
               </div>
@@ -67,12 +71,14 @@
               >
               <form class="d-flex">
                 <input
-                  class="form-control me-2"
+                  class="form-control me-2 search-input"
                   type="search"
                   placeholder="Search"
                   aria-label="Search"
                 />
-                <button class="btn btn-primary" type="submit">Search</button>
+                <button class="btn btn-primary search-btn" type="submit">
+                  Search
+                </button>
               </form>
               <a href="cart.html">
                 <svg
@@ -94,11 +100,13 @@
       </header>
       <main>
         <div class="row products-row">
-          <div class="col-12 col-md-2">
+          <div class="col-12 col-md-3">
             <div class="row">
               <form class="options-blocks-form">
                 <div class="col-12"><h6>Filter</h6></div>
-                <div class="col-12"><span>Sort</span></div>
+                <div class="col-12">
+                  <span><b>Sort</b></span>
+                </div>
                 <div class="col-12">
                   <div class="options-blocks-radio">
                     <input
@@ -128,14 +136,25 @@
                   </div>
                 </div>
               </form>
+              <form class="category-blocks-form">
+                <div class="col-12">
+                  <span><b>Categories</b></span>
+                </div>
+                <div class="col-12 categories-products"></div>
+              </form>
+            </div>
+            <div class="col-12">
+              <button type="button" class="btn btn-danger reset-btn">
+                Reset
+              </button>
             </div>
           </div>
-          <div class="col-12 col-md-10 d-flex justify-content-center">
+          <div class="col-12 col-md-9 d-flex">
             <div class="row">
               <div class="col-12"><h5>Products</h5></div>
-              <div class="col-12 d-flex justify-content-center">
+              <div class="col-12 d-flex justify-content-start">
                 <div
-                  class="row products-list d-flex justify-content-between g-2"
+                  class="row products-list d-flex justify-content-start g-2"
                 ></div>
               </div>
             </div>
@@ -153,23 +172,23 @@
         <div class="row footer">
           <div class="col-12 col-md-4 d-flex justify-content-center">
             <ul class="footer-list">
-              <li class="footer-list-item"><a href="#">Первый пункт</a></li>
-              <li class="footer-list-item"><a href="#">Первый пункт</a></li>
-              <li class="footer-list-item"><a href="#">Первый пункт</a></li>
+              <li class="footer-list-item"><a href="#">Shipping</a></li>
+              <li class="footer-list-item"><a href="#">Return</a></li>
+              <li class="footer-list-item"><a href="#">Track Order</a></li>
             </ul>
           </div>
           <div class="col-12 col-md-4 d-flex justify-content-center">
             <ul class="footer-list">
-              <li class="footer-list-item"><a href="#">Первый пункт</a></li>
-              <li class="footer-list-item"><a href="#">Первый пункт</a></li>
-              <li class="footer-list-item"><a href="#">Первый пункт</a></li>
+              <li class="footer-list-item"><a href="#">My Account</a></li>
+              <li class="footer-list-item"><a href="#">Discount</a></li>
+              <li class="footer-list-item"><a href="#">FAQ's</a></li>
             </ul>
           </div>
           <div class="col-12 col-md-4 d-flex justify-content-center">
             <ul class="footer-list">
-              <li class="footer-list-item"><a href="#">Первый пункт</a></li>
-              <li class="footer-list-item"><a href="#">Первый пункт</a></li>
-              <li class="footer-list-item"><a href="#">Первый пункт</a></li>
+              <li class="footer-list-item"><a href="#">Jobs</a></li>
+              <li class="footer-list-item"><a href="#">Terms</a></li>
+              <li class="footer-list-item"><a href="#">Corporate</a></li>
             </ul>
           </div>
         </div>

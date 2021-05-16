@@ -3,4 +3,8 @@ export default class SortView {
     this.sortForm = document.querySelector(".options-blocks-form");
     this.sortForm.addEventListener("change", onSortOptionFormClick);
   }
+
+  resetForm() {
+    this.sortForm.reset();
+  }
 }

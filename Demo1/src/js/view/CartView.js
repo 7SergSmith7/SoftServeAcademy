@@ -11,18 +11,18 @@ export default class CartView {
   }
   getProductInCartTemplate(product) {
     return `<div
-      class="col product-item d-flex align-items-center justify-content-between"
+      class="col product-item d-flex justify-content-between"
       data-id="${product.id}"
     >
       <img
-        src="${product.imgUrl}"
+        src="${product.imgLink}"
         data-id="${product.id}"
         class="card-img-cart"
         alt="${product.title}"
       />
 
       <p class="card-title" data-id="${product.id}">
-        ${product.title}
+        ${product.productName}
       </p>
       <p class="card-price" data-id="${product.id}">
         ${product.price} UAH

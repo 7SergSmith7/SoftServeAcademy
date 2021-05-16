@@ -12,7 +12,7 @@ export default class PaginationModel {
 
   splitByPages(list) {
     let pagesPag = [];
-
+    this.nPages = Math.ceil(list.length / this.nElementsOnPage);
     for (
       let i = 0, start = 0, end = this.nElementsOnPage;
       i < this.nPages;

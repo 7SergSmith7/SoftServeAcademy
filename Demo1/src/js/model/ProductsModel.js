@@ -1,25 +1,63 @@
 import { PRODUCTS_LIST_URL } from "../config.js";
-// import { PRODUCTS_LIST_URL_NEW } from "../config.js";
+
 export default class ProductsModel {
   constructor() {
     this.productsList = [];
-    // this.productsListNew = this.getProductsList();
-    // console.log(this.productsListNew);
+    this.productsListOriginal = [];
+    this.productsCategories = [];
+    this.cortOption = 0;
+    this.searchStr = "";
   }
-
-  // getProductsList() {
-  //   return fetch(PRODUCTS_LIST_URL)
-  //     .then((res) => res.json())
-  //     .then((data) => (this.productsList = data));
-  // }
+  setSearchOption(searchInput) {
+    if (searchInput != "") {
+      this.searchStr = searchInput;
+      console.log(this.searchStr);
+      this.getSearchedProducts(this.productsListOriginal);
+      console.log(this.productsList);
+    }
+  }
 
   getProductsList() {
-    return fetch(
-      "https://spreadsheets.google.com/feeds/cells/1PXorfz2O2NqH-FcW0nA-HhmtZMmSSwgHheifWc0e1tU/1/public/full?alt=json"
-    )
+    return fetch(PRODUCTS_LIST_URL)
       .then((res) => res.json())
-      .then((data) => (this.productsList = this.makeProductsList(data)));
+      .then((data) => (this.productsListOriginal = this.makeProductsList(data)))
+      .then(() => this.setOriginalProducts());
   }
+
+  setOriginalProducts() {
+    this.productsList = this.productsListOriginal;
+  }
+
+  getCategories(products) {
+    let categories = [];
+    let categoryOfProduct;
+    for (let i = 0; i < products.length; i++) {
+      categoryOfProduct = products[i].category;
+      if (!categories.includes(categoryOfProduct))
+        categories.push(products[i].category);
+    }
+
+    this.productsCategories = categories;
+  }
+
+  getProductsByCategory(category) {
+    this.productsList = this.productsListOriginal.filter(
+      (product) => product.category === category
+    );
+    if (this.searchStr !== "") this.getSearchedProducts(this.productsList);
+    if (this.cortOption !== 0) this.sortPrice(this.cortOption);
+  }
+
+  getSearchedProducts(products) {
+    this.productsList = products.filter((product) => {
+      if (
+        product.productName.toLowerCase().includes(this.searchStr) ||
+        product.manufacture.toLowerCase().includes(this.searchStr)
+      )
+        return product;
+    });
+  }
+
   makeProductsList(data) {
     const productFields = [
       "id",
@@ -46,6 +84,7 @@ export default class ProductsModel {
     return products;
   }
   sortPrice(options) {
+    this.cortOption = options;
     if (options === "descending")
       return this.productsList.sort((a, b) => this.comparePrice(a, b));
     if (options === "ascending")
@@ -59,13 +98,22 @@ export default class ProductsModel {
     return product[0];
   }
   creatLocalCart() {
-    let productsInCart = [];
-    localStorage.setItem("productCart", JSON.stringify(productsInCart));
+    let productsInCartEmpty = [];
+    localStorage.setItem("productCart", JSON.stringify(productsInCartEmpty));
   }
   addProductToCart(product) {
     let productsInCart = JSON.parse(localStorage.getItem("productCart"));
-    if (productsInCart === "null") this.creatLocalCart();
+
+    if (productsInCart === null) {
+      this.creatLocalCart();
+      productsInCart = [];
+    }
     productsInCart.push(product);
     localStorage.setItem("productCart", JSON.stringify(productsInCart));
+  }
+  resetOptions() {
+    this.cortOption = 0;
+    this.searchStr = "";
+    this.setOriginalProducts();
   }
 }
