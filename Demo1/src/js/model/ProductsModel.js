@@ -101,12 +101,19 @@ export default class ProductsModel {
     let productsInCartEmpty = [];
     localStorage.setItem("productCart", JSON.stringify(productsInCartEmpty));
   }
-  addProductToCart(product) {
+  addProductToCart(id, countProducts) {
     let productsInCart = JSON.parse(localStorage.getItem("productCart"));
-
+    let product = Object.assign(this.getProductById(id));
+    product.quantity = countProducts;
     if (productsInCart === null) {
       this.creatLocalCart();
       productsInCart = [];
+    }
+    for (let i = 0; i < productsInCart.length; i++) {
+      if (productsInCart[i].id == product.id) {
+        productsInCart[i].quantity += product.quantity;
+        break;
+      }
     }
     productsInCart.push(product);
     localStorage.setItem("productCart", JSON.stringify(productsInCart));

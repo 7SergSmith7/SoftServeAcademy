@@ -1,22 +1,23 @@
 import ProductsModel from "../model/ProductsModel.js";
 import ProductsView from "../view/ProductsView.js";
-import SortView from "../view/SortView.js";
+
 import PaginationModel from "../model/PaginationModel.js";
 import PaginationView from "../view/PaginationView.js";
-import CategoryView from "../view/CategoryView.js";
-import SearchView from "../view/SearchView.js";
+
 export default class ProductsController {
   constructor() {
-    this.productVeiw = new ProductsView(
+    this.productView = new ProductsView(
       this.onProductCartClick,
       this.onAddToCartClick,
-      this.onResetBtnClick
+      this.onResetBtnClick,
+      this.onSortOptionFormClick,
+      this.onSearchBtnClick,
+      this.onCategoryFormClick,
+      this.onChangeQtyClick
     );
     this.productModel = new ProductsModel();
     this.paginationView = new PaginationView(this.onPaginationLinkClick);
-    this.sortView = new SortView(this.onSortOptionFormClick);
-    this.categoryView = new CategoryView(this.onCategoryFormClick);
-    this.searchView = new SearchView(this.onSearchBtnClick);
+
     this.viewInit();
   }
 
@@ -31,20 +32,18 @@ export default class ProductsController {
       .then(() => {
         this.productModel.getCategories(this.productModel.productsList);
         this.renderProductsList();
-        this.categoryView.renderCategories(
-          this.productModel.productsCategories
-        );
+        this.productView.renderCategories(this.productModel.productsCategories);
       });
   }
   renderProductsList() {
-    this.productVeiw.renderProducts(this.paginationModel.firstPageData());
+    this.productView.renderProducts(this.paginationModel.firstPageData());
     this.paginationView.renderPaginationLinks(this.paginationModel.nPages);
   }
-  resertForms() {
-    this.searchView.clearSearchInput();
+  resetForms() {
+    this.productView.clearSearchInput();
     this.productModel.resetOptions();
-    this.sortView.resetForm();
-    this.categoryView.resetForm();
+    this.productView.resetSortForm();
+    this.productView.resetCategoryForm();
   }
 
   onCategoryFormClick = ({ target: categoryOptionInput }) => {
@@ -60,7 +59,7 @@ export default class ProductsController {
   };
 
   onPaginationLinkClick = ({ target: paginationPage }) => {
-    this.productVeiw.renderProducts(
+    this.productView.renderProducts(
       this.paginationModel.getPageList(paginationPage.id)
     );
 
@@ -71,26 +70,38 @@ export default class ProductsController {
   };
 
   onProductCartClick = ({ target: productId }) => {
-    if (!isNaN(productId.dataset.id) && productId.type != "button")
-      this.productVeiw.addModalProduct(
+    if (
+      !isNaN(productId.dataset.id) &&
+      productId.type != "button" &&
+      productId.type != "text"
+    )
+      this.productView.addModalProduct(
         this.productModel.getProductById(productId.dataset.id)
       );
   };
 
   onAddToCartClick = ({ target: productId }) => {
     this.productModel.addProductToCart(
-      this.productModel.getProductById(productId.dataset.id)
+      productId.dataset.id,
+      this.productView.getCountProductInput(productId.dataset.id)
     );
   };
   onSearchBtnClick = (ev) => {
     ev.preventDefault();
-    this.productModel.setSearchOption(this.searchView.getSearchInput());
+    if (this.productView.getSearchInput() != "") {
+      this.productModel.setSearchOption(this.productView.getSearchInput());
+      this.paginationModel.reSplitByPages(this.productModel.productsList);
+      this.productView.resetSortForm();
+      this.productView.resetCategoryForm();
+      this.renderProductsList();
+    }
+  };
+  onResetBtnClick = () => {
+    this.resetForms();
     this.paginationModel.reSplitByPages(this.productModel.productsList);
     this.renderProductsList();
   };
-  onResetBtnClick = () => {
-    this.resertForms();
-    this.paginationModel.reSplitByPages(this.productModel.productsList);
-    this.renderProductsList();
+  onChangeQtyClick = ({ target: btn }) => {
+    this.productView.changeQtyInProductCart(btn);
   };
 }
