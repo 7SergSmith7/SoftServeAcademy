@@ -142,7 +142,7 @@ ul {
   font-size: 14px;
 }
 .card-title {
-  width: 130px;
+  width: 200px;
 }
 
 .checkout-title {
@@ -159,4 +159,15 @@ ul {
 }
 .form-control {
   width: 200px;
+}
+.order-item {
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.client-info {
+  width: 200px;
+}
+.order-products {
+  width: 240px;
+  font-size: 12px;
 }

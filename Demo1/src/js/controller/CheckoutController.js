@@ -9,11 +9,20 @@ export default class CheckoutController {
 
   onFormSubmitClick = (ev) => {
     ev.preventDefault();
-    this.checkoutModel.sendOrderInfo(
-      this.checkoutView.getTemplateMsg(
-        this.checkoutView.getCheckoutFormValue(),
-        this.checkoutModel.productsInCart
-      )
-    );
+    this.checkoutModel.creatOrder(this.checkoutView.getCheckoutFormValue());
+    this.saveOrderHistory();
+    this.sendMesageToOwner();
+    this.renderThankYou();
   };
+  sendMesageToOwner() {
+    this.checkoutModel.sendOrderInfo(
+      this.checkoutView.getTemplateMsg(this.checkoutModel.getOrder())
+    );
+  }
+  saveOrderHistory() {
+    this.checkoutModel.updateLocalOrderHistory();
+  }
+  renderThankYou() {
+    this.checkoutView.renderThankYouForOrder();
+  }
 }

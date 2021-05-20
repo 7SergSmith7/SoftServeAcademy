@@ -1,15 +1,35 @@
 export default class CheckoutView {
   constructor(onFormSubmitClick) {
+    this.checkoutBlock = document.querySelector(".checkout-block");
     this.checkoutForm = document.querySelector(".checkout-form");
     this.inputEmail = document.getElementById("inputEmail");
     this.inputName = document.getElementById("inputName");
     this.inputPhone = document.getElementById("inputPhone");
+
     this.checkoutForm.addEventListener("submit", onFormSubmitClick);
   }
 
-  getTemplateMsg(client, productsInCart) {
+  renderThankYouForOrder() {
+    this.checkoutBlock.innerHTML = "";
+    this.checkoutBlock.innerHTML += this.getTemplateThankYouForOrde();
+  }
+
+  getTemplateThankYouForOrde() {
+    return `<div class="row">
+    <div class="col-12">
+      <p>Thank you for order</p>
+      <a role="button" class="btn btn-primary" href="index.html"
+        >Catalog</a
+      >
+    </div>
+  </div>`;
+  }
+
+  getTemplateMsg({ client, cart, total }) {
     return (
-      this.getTemplateClient(client) + this.getTemplateOrder(productsInCart)
+      this.getTemplateClient(client) +
+      this.getTemplateOrder(cart) +
+      `%0A*Total* : ${total} UAH`
     );
   }
 
@@ -21,13 +41,13 @@ export default class CheckoutView {
     };
   }
 
-  getTemplateClient(clientsData) {
-    return `*New order*%0A 
-    *Name* : ${clientsData.name}%0A 
-    *Email* : ${clientsData.email}%0A 
-    *Phone* : ${clientsData.phone}%0A 
-    *Cart* :%0A 
-    `;
+  getTemplateClient({ name, email, phone }) {
+    return `
+    *New order*%0A 
+    *Name* : ${name}%0A 
+    *Email* : ${email}%0A 
+    *Phone* : ${phone}%0A 
+    *Cart* :%0A %0A`;
   }
 
   getTemplateOrder(productsInCart) {
@@ -35,9 +55,10 @@ export default class CheckoutView {
       .map((product) => this.getTemplateProductInCart(product))
       .join("");
   }
-  getTemplateProductInCart(product) {
-    return `*${product.productName}*
-    *Qty* : ${product.quantity}%0A 
-    `;
+  getTemplateProductInCart({ productName, quantity, price }) {
+    return `
+    *${productName}* %0A
+    ${quantity} X ${price} UAH
+    %0A`;
   }
 }
