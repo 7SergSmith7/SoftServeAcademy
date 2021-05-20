@@ -9,6 +9,11 @@ export default class CheckoutController {
 
   onFormSubmitClick = (ev) => {
     ev.preventDefault();
-    this.checkoutModel.sendOrderInfo(this.checkoutView.getCheckoutFormValue());
+    this.checkoutModel.sendOrderInfo(
+      this.checkoutView.getTemplateMsg(
+        this.checkoutView.getCheckoutFormValue(),
+        this.checkoutModel.productsInCart
+      )
+    );
   };
 }
