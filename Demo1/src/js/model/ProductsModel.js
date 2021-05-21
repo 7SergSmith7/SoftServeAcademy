@@ -109,12 +109,12 @@ export default class ProductsModel {
       this.creatLocalCart();
       productsInCart = [];
     }
-    for (let i = 0; i < productsInCart.length; i++) {
-      if (productsInCart[i].id == product.id) {
-        productsInCart[i].quantity += product.quantity;
-        break;
-      }
-    }
+    // for (let i = 0; i < productsInCart.length; i++) {
+    //   if (productsInCart[i].id == product.id) {
+    //     productsInCart[i].quantity += product.quantity;
+    //     break;
+    //   }
+    // }
     productsInCart.push(product);
     localStorage.setItem("productCart", JSON.stringify(productsInCart));
   }
